@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Teacher Dashboard</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+.side-message {
+    position: fixed;
+    top: 20px;
+    right: -300px;
+    background: #333;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: 0.4s;
+    z-index: 999;
+}
+.side-message.show {
+    right: 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h2>EduSmart</h2>
+
+<ul>
+<li onclick="showTeacher('dashboard')">📊 Dashboard</li>
+<li onclick="showTeacher('students')">👨‍🎓 Students</li>
+<li onclick="showTeacher('schedule')">📅 Schedule</li>
+<li onclick="showTeacher('assignments')">📂 Assignments</li>
+<li onclick="showTeacher('notes')">📚 Notes</li>
+<li onclick="showTeacher('announcements')">📢 Announcements</li>
+<li onclick="showTeacher('marks')">📝 Marks</li>
+</ul>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="header">
+<h2>Teacher Dashboard</h2>
+
+<div>
+<button onclick="location.href='/change-password'">Change Password</button>
+<button onclick="logout()">Logout</button>
+</div>
+</div>
+
+<div id="sideMessage" class="side-message"></div>
+
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboard" class="section" style="display:block;">
+
+<!-- 🔹 EXISTING -->
+<div class="card">
+<h3>📊 Attendance Control</h3>
+<button onclick="toggleAttendance()">Start / Stop Attendance</button>
+<p>Status: <span id="attStatus">Loading...</span></p>
+</div>
+
+<!-- 🔹 NEW GRID (SAFE) -->
+<div class="dashboard-grid">
+
+  <div class="card">
+    <h3>📊 Quick Stats</h3>
+    <p>Total Students: <span id="totalStudents">0</span></p>
+    <p>Total Assignments: <span id="totalAssign">0</span></p>
+    <p>Total Notes: <span id="totalNotes">0</span></p>
+  </div>
+
+  <div class="card">
+    <h3>📂 Recent Submissions</h3>
+    <ul id="recentSubmissions"></ul>
+  </div>
+
+</div>
+
+<!-- 🔔 NOTIFICATIONS -->
+<div class="dashboard-grid">
+  <div class="card">
+    <h3>🔔 Notifications</h3>
+    <ul id="teacherNotif"></ul>
+  </div>
+</div>
+
+</div>
+
+<!-- ================= STUDENTS ================= -->
+<div id="students" class="section" style="display:none;">
+<div class="card">
+<h3>👨‍🎓 Students Attendance (Class Wise)</h3>
+
+<table>
+<thead>
+<tr id="dynamicHeader">
+<th>Name</th>
+<th>Enrollment</th>
+</tr>
+</thead>
+
+<tbody id="studentTable"></tbody>
+</table>
+
+</div>
+</div>
+
+<!-- ================= SCHEDULE ================= -->
+<div id="schedule" class="section" style="display:none;">
+
+<div class="card">
+<h3>📅 Schedule Class</h3>
+<input type="date" id="classDate">
+<button onclick="scheduleClass()">Schedule</button>
+</div>
+
+<div class="card">
+<h3>📌 Scheduled Classes</h3>
+<ul id="scheduleList"></ul>
+</div>
+
+</div>
+
+<!-- ================= ASSIGNMENTS ================= -->
+<div id="assignments" class="section" style="display:none;">
+
+<div class="card">
+<h3>Upload Assignment</h3>
+<input id="assignTitle" placeholder="Title">
+<input id="assignDesc" placeholder="Description">
+<input type="file" id="assignFile">
+<button onclick="uploadAssignment()">Upload</button>
+</div>
+
+<div class="card">
+<h3>All Assignments</h3>
+<ul id="assignList"></ul>
+</div>
+
+</div>
+
+<!-- ================= NOTES ================= -->
+<div id="notes" class="section" style="display:none;">
+
+<div class="card">
+<h3>Upload Notes</h3>
+<input id="noteTitle" placeholder="Title">
+<input type="file" id="noteFile">
+<button onclick="uploadNotes()">Upload</button>
+</div>
+
+<div class="card">
+<h3>All Notes</h3>
+<ul id="noteList"></ul>
+</div>
+
+</div>
+
+<!-- ================= ANNOUNCEMENTS ================= -->
+<div id="announcements" class="section" style="display:none;">
+
+<div class="card">
+<h3>Post Announcement</h3>
+<input id="announcementInput" placeholder="Message">
+<button onclick="postAnnouncement()">Post</button>
+</div>
+<div class="card">
+<h3>All Announcements</h3>
+<ul id="teacherAnnouncementList"></ul>
+</div>
+
+</div>
+
+<!-- ================= MARKS ================= -->
+<div id="marks" class="section" style="display:none;">
+
+<div class="card">
+<h3>Marks Entry</h3>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Enroll</th>
+<th>Mid</th>
+<th>End</th>
+<th>Cap</th>
+<th>Lab</th>
+<th>Save</th>
+</tr>
+</thead>
+
+<tbody id="marksTable"></tbody>
+</table>
+
+</div>
+
+</div>
+
+</div> <!-- MAIN -->
+</div> <!-- LAYOUT -->
+
+<script src="{{ url_for('static', filename='teacher.js') }}"></script>
+
+</body>
+</html>

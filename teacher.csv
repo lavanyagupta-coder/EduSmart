@@ -1,0 +1,5 @@
+name,enrollment,password,role
+Praveen,T001,pass123,teacher
+RK Singh,T002,pass123,teacher
+Shweta,T003,pass123,teacher
+Admin,ADMIN,admin123,teacher

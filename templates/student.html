@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Dashboard</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+.side-message {
+    position: fixed;
+    top: 20px;
+    right: -300px;
+    background: #333;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: 0.4s;
+    z-index: 999;
+}
+.side-message.show {
+    right: 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>EduSmart</h2>
+
+    <ul>
+      <li onclick="showSection('dashboard')">🏠 Dashboard</li>
+      <li onclick="showSection('attendance')">📅 Attendance</li>
+      <li onclick="showSection('assignments')">📂 Assignments</li>
+      <li onclick="showSection('notes')">📚 Notes</li>
+      <li onclick="showSection('announcements')">📢 Announcements</li>
+      <li onclick="showSection('marks')">📊 Marks</li>
+    </ul>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h2 id="studentName">Student Dashboard</h2>
+
+      <div>
+        <button onclick="location.href='/change-password'">Change Password</button>
+        <button onclick="logout()">Logout</button>
+      </div>
+    </div>
+
+    <!-- MESSAGE -->
+    <div id="sideMessage" class="side-message"></div>
+
+    <!-- ================= DASHBOARD ================= -->
+    <div id="dashboard" class="section" style="display:block;">
+
+      <div class="cards">
+
+        <div class="card small">
+          <h4>Attendance</h4>
+          <p id="attValue">Loading...</p>
+        </div>
+
+        <div class="card small">
+          <h4>Assignments</h4>
+          <p id="assignValue">Loading...</p>
+        </div>
+
+        <div class="card small">
+          <h4>Marks</h4>
+          <p id="marksValue">Loading...</p>
+        </div>
+
+      </div>
+
+      <!-- DASHBOARD EXTRA -->
+      <div class="dashboard-grid">
+
+        <div class="card">
+          <h3>📊 Attendance Overview</h3>
+          <canvas id="attendanceChart"></canvas>
+        </div>
+
+        <div class="card">
+          <h3>📂 Assignment Progress</h3>
+          <p id="assignProgress">Loading...</p>
+        </div>
+        
+
+      </div>
+      <div class="dashboard-grid">
+
+  <div class="card">
+    <h3>🔔 Notifications</h3>
+    <ul id="notifList"></ul>
+  </div>
+
+</div>
+
+    </div>
+     
+
+    <!-- ================= ATTENDANCE ================= -->
+    <div id="attendance" class="section" style="display:none;">
+
+      <div class="card">
+
+        <h3>📅 Attendance Panel</h3>
+
+        <div class="progress-bar">
+          <div id="progressFill"></div>
+        </div>
+
+        <p id="percentText">Loading...</p>
+
+        <table border="1" width="100%">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody id="attendanceTable"></tbody>
+        </table>
+
+      </div>
+
+    </div>
+
+    <!-- ================= ASSIGNMENTS ================= -->
+    <div id="assignments" class="section" style="display:none;">
+
+      <div class="card">
+        <h3>📂 Assignments</h3>
+        <ul id="assignmentList"></ul>
+      </div>
+
+    </div>
+
+    <!-- ================= NOTES ================= -->
+    <div id="notes" class="section" style="display:none;">
+
+      <div class="card">
+        <h3>📚 Notes</h3>
+        <ul id="notesList"></ul>
+      </div>
+
+    </div>
+
+    <!-- ================= ANNOUNCEMENTS ================= -->
+    <div id="announcements" class="section" style="display:none;">
+
+      <div class="card">
+        <h3>📢 Announcements</h3>
+        <ul id="announcementList"></ul>
+      </div>
+
+    </div>
+
+    <!-- ================= MARKS ================= -->
+    <div id="marks" class="section" style="display:none;">
+
+      <div class="card">
+        <h3>📊 Marks Details</h3>
+
+        <table border="1" width="100%">
+          <tbody id="marksTable"></tbody>
+        </table>
+
+      </div>
+
+    </div>
+
+  </div> <!-- END MAIN -->
+
+</div> <!-- END LAYOUT -->
+
+<script src="{{ url_for('static', filename='student.js') }}"></script>
+
+</body>
+</html>
